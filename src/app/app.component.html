@@ -1,0 +1,159 @@
+<div class="bg-white">
+  <!-- Mobile Menu: Only rendered when mobileMenuOpen is true -->
+  <div
+    class="relative z-40 lg:hidden"
+    role="dialog"
+    aria-modal="true"
+    *ngIf="mobileMenuOpen">
+    
+    <!-- Backdrop -->
+    <div class="fixed inset-0 bg-black/25" aria-hidden="true" (click)="closeMobileMenu()"></div>
+
+    <div class="fixed inset-0 z-40 flex">
+      <div class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+        <div class="flex px-4 pt-5 pb-2">
+          <button
+            type="button"
+            class="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+            (click)="closeMobileMenu()">
+            <span class="sr-only">Close menu</span>
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation Links -->
+        <div class="space-y-6 border-t border-gray-200 px-4 py-6">
+          <div class="flow-root">
+            <a href="#" class="-m-2 block p-2 font-medium text-gray-900" (click)="openPopup()">Company</a>
+          </div>
+          <div class="flow-root">
+            <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Stores</a>
+          </div>
+        </div>
+        <!-- Additional sections (Sign in, Create account, Currency, etc.) can be added here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Desktop Menu -->
+  <header class="relative bg-white">
+    <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white">
+    
+    </p>
+
+    <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="border-b border-gray-200">
+        <div class="flex h-16 items-center">
+          <!-- Mobile menu toggle button: Visible on mobile only (lg:hidden) -->
+          <button
+            type="button"
+            class="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
+            (click)="toggleMobileMenu()">
+            <span class="sr-only">Open menu</span>
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+
+          <!-- Logo -->
+          <div class="ml-4 flex lg:ml-0">
+            <a href="#">
+              <span class="sr-only">Your Company</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
+                <!-- White background -->
+                <rect width="24" height="24" fill="white" />
+                <!-- Home icon path in indigo-600 (#4F46E5) -->
+                <path fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V13H9v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10z" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Desktop Flyout Menus -->
+          <div class="hidden lg:ml-8 lg:block lg:self-stretch">
+            <div class="flex h-full space-x-8">
+              <!-- Women Flyout -->
+              <!-- <div class="relative flex">
+                <button
+                  type="button"
+                  class="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800"
+                  [class.border-indigo-600]="womenFlyoutOpen"
+                  (click)="toggleWomenFlyout()">
+                  Category
+                </button>
+                <div class="absolute inset-x-0 top-full text-sm text-gray-500" *ngIf="womenFlyoutOpen">
+                  <div class="absolute inset-0 top-1/2 bg-white " aria-hidden="true"></div>
+                  <div class="relative bg-white">
+                    <div class="mx-auto max-w-7xl px-8">
+                      <div class="flex flex-col items-start space-y-2 py-4">
+                        <ng-container *ngFor="let category of categories">
+                          <a (click)="navigateToCategory(category)" class="whitespace-nowrap text-gray-900 transition-colors hover:text-indigo-600">{{category}}</a>
+                        </ng-container>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <ng-container *ngFor="let category of categories">
+                <a routerLink="/products/{{category}}" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                  {{category}}
+                </a>
+              </ng-container>
+              
+
+              <!-- Other navigation links -->
+              <!-- <a href="#" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                Company
+              </a>
+              <a href="#" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                Stores
+              </a> -->
+            </div>
+          </div>
+          <div class="ml-auto flex items-center">
+            <!-- Cart (unchanged) -->
+            <div class="ml-4 flow-root lg:ml-6">
+              <a routerLink="/cart" class="group -m-2 flex items-center p-2">
+                <svg class="w-6 h-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+              </a>
+            </div>
+          
+            <!-- Notifications -->
+            <div class="ml-4">
+              <button type="button" class="relative rounded-full bg-white p-1 text-gray-700 hover:text-gray-900 focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-white focus:outline-none">
+                <span class="sr-only">View notifications</span>
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                </svg>
+              </button>
+            </div>
+          
+            <!-- Profile Dropdown -->
+            <div class="ml-4 relative group">
+              <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+              </button>
+              <div class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 opacity-0 invisible group-focus-within:opacity-100 group-focus-within:visible transition-opacity">
+                <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Your Profile</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Settings</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Sign out</a>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="div">
+  <router-outlet></router-outlet>
+  </div>
+</div>
+
+

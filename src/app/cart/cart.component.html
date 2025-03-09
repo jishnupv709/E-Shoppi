@@ -1,0 +1,69 @@
+<div class="max-w-3xl mx-auto p-4 space-y-6">
+  <h2 class="text-2xl font-bold text-gray-800">My Cart</h2>
+
+  <!-- If there are items in the cart, show the table; otherwise show emptyCart -->
+  <div *ngIf="cart.length > 0; else emptyCart">
+    <!-- Responsive table wrapper -->
+    <div class="overflow-x-auto bg-white shadow rounded">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-4 py-2 text-left text-sm font-medium text-gray-700">Product</th>
+            <th scope="col" class="px-4 py-2 text-left text-sm font-medium text-gray-700">Price</th>
+            <th scope="col" class="px-4 py-2 text-right text-sm font-medium text-gray-700">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of cart; let i = index"
+            class="hover:bg-gray-50 transition-colors"
+          >
+            <!-- Product column -->
+            <td class="px-4 py-3 flex items-center space-x-3">
+              <img
+                [src]="item.image"
+                alt="{{ item.title }}"
+                class="w-16 h-16 object-contain rounded"
+              />
+              <div>
+                <h3 class="text-sm font-medium text-gray-800">
+                  {{ item.title }}
+                </h3>
+              </div>
+            </td>
+            <!-- Price column -->
+            <td class="px-4 py-3">
+              <p class="text-gray-700">
+                {{ item.price | currency }}
+              </p>
+            </td>
+            <!-- Actions column -->
+            <td class="px-4 py-3 text-right">
+              <button
+                (click)="removeFromCart(i)"
+                class="text-red-500 hover:text-red-600 transition-colors"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Clear Cart button -->
+    <div class="flex justify-end mt-4">
+      <button
+        (click)="clearCart()"
+        class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition-colors"
+      >
+        Clear Cart
+      </button>
+    </div>
+  </div>
+
+  <!-- If cart is empty, show this -->
+  <ng-template #emptyCart>
+    <p class="text-gray-700">Your cart is empty.</p>
+  </ng-template>
+</div>
